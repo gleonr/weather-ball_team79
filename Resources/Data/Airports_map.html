@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_9ef485c7458c4940a0dd8fa74e99b7bc {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_9ef485c7458c4940a0dd8fa74e99b7bc" ></div>
+        
+</body>
+<script>    
+    
+            var map_9ef485c7458c4940a0dd8fa74e99b7bc = L.map(
+                "map_9ef485c7458c4940a0dd8fa74e99b7bc",
+                {
+                    center: [8.375654999999998, -74.50569999999999],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 5,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_eb5b7a8d796c4c72886a8502c6501832 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+            var marker_2a83a5a046a346f5b5b9c1f61b5db4d2 = L.marker(
+                [7.1265, -73.1848],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_1372f4a4a99a4926b51199de44d6396e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_b004b6600c4249e2bf4a7440ea82b277 = $(`<div id="html_b004b6600c4249e2bf4a7440ea82b277" style="width: 100.0%; height: 100.0%;">(BGA) Bucaramanga</div>`)[0];
+            popup_1372f4a4a99a4926b51199de44d6396e.setContent(html_b004b6600c4249e2bf4a7440ea82b277);
+        
+
+        marker_2a83a5a046a346f5b5b9c1f61b5db4d2.bindPopup(popup_1372f4a4a99a4926b51199de44d6396e)
+        ;
+
+        
+    
+    
+            var marker_963f4598106249208e60ab0a9d9afa96 = L.marker(
+                [4.70159, -74.1469],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_cce5b8072d4640ef9d378bf62ba3da48 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_b9d7fb7b9b204e62b5af11f8d8c8fc7a = $(`<div id="html_b9d7fb7b9b204e62b5af11f8d8c8fc7a" style="width: 100.0%; height: 100.0%;">(BOG) Bogota</div>`)[0];
+            popup_cce5b8072d4640ef9d378bf62ba3da48.setContent(html_b9d7fb7b9b204e62b5af11f8d8c8fc7a);
+        
+
+        marker_963f4598106249208e60ab0a9d9afa96.bindPopup(popup_cce5b8072d4640ef9d378bf62ba3da48)
+        ;
+
+        
+    
+    
+            var marker_88b8d37402944dc6937806280d56ba25 = L.marker(
+                [10.8896, -74.7808],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_73dc40413a204e3388e7003acb8fa327 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_09493637e13d42529ec10bff6788fb1b = $(`<div id="html_09493637e13d42529ec10bff6788fb1b" style="width: 100.0%; height: 100.0%;">(BAQ) Barranquilla</div>`)[0];
+            popup_73dc40413a204e3388e7003acb8fa327.setContent(html_09493637e13d42529ec10bff6788fb1b);
+        
+
+        marker_88b8d37402944dc6937806280d56ba25.bindPopup(popup_73dc40413a204e3388e7003acb8fa327)
+        ;
+
+        
+    
+    
+            var marker_d4f211bd0ddc40abaaa318bebad799fe = L.marker(
+                [7.927569999999999, -72.5115],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_9b2356c4abdb4f9ba43f21741adb8921 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_173cb85d7fbe40e4a9f7a522fb80251f = $(`<div id="html_173cb85d7fbe40e4a9f7a522fb80251f" style="width: 100.0%; height: 100.0%;">(CUC) Cúcuta</div>`)[0];
+            popup_9b2356c4abdb4f9ba43f21741adb8921.setContent(html_173cb85d7fbe40e4a9f7a522fb80251f);
+        
+
+        marker_d4f211bd0ddc40abaaa318bebad799fe.bindPopup(popup_9b2356c4abdb4f9ba43f21741adb8921)
+        ;
+
+        
+    
+    
+            var marker_a3cb510ce71b47e9aa6f1184a990bebf = L.marker(
+                [10.4424, -75.513],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_d7298f5f9ded4c6a8632c1925de5bbf0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_6a7f3b7321a847f199c80730e302285c = $(`<div id="html_6a7f3b7321a847f199c80730e302285c" style="width: 100.0%; height: 100.0%;">(CTG) Cartagena</div>`)[0];
+            popup_d7298f5f9ded4c6a8632c1925de5bbf0.setContent(html_6a7f3b7321a847f199c80730e302285c);
+        
+
+        marker_a3cb510ce71b47e9aa6f1184a990bebf.bindPopup(popup_d7298f5f9ded4c6a8632c1925de5bbf0)
+        ;
+
+        
+    
+    
+            var marker_2c175e0d3e0e4a748a5f3a1c30d1b6b8 = L.marker(
+                [3.54322, -76.3816],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_e10a7dc9a582456691e63b6a799e4d95 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_63be1392a92d412d99276246bb6e4f84 = $(`<div id="html_63be1392a92d412d99276246bb6e4f84" style="width: 100.0%; height: 100.0%;">(CLO) Cali</div>`)[0];
+            popup_e10a7dc9a582456691e63b6a799e4d95.setContent(html_63be1392a92d412d99276246bb6e4f84);
+        
+
+        marker_2c175e0d3e0e4a748a5f3a1c30d1b6b8.bindPopup(popup_e10a7dc9a582456691e63b6a799e4d95)
+        ;
+
+        
+    
+    
+            var marker_be501addb5ee4a448f239d399e5151ed = L.marker(
+                [-4.19355, -69.9432],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_b2ccd00bba59460086c7fdac58f9bf1f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_7b10badc508e491497016d63c0d73586 = $(`<div id="html_7b10badc508e491497016d63c0d73586" style="width: 100.0%; height: 100.0%;">(LET) Leticia</div>`)[0];
+            popup_b2ccd00bba59460086c7fdac58f9bf1f.setContent(html_7b10badc508e491497016d63c0d73586);
+        
+
+        marker_be501addb5ee4a448f239d399e5151ed.bindPopup(popup_b2ccd00bba59460086c7fdac58f9bf1f)
+        ;
+
+        
+    
+    
+            var marker_110e4d4cf2ce447fa50600916498b9f4 = L.marker(
+                [8.823739999999999, -75.8258],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_a90430080ad1459e8731bf1a9b32601d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_b7fd37e2232b4caba88de63a829cacc1 = $(`<div id="html_b7fd37e2232b4caba88de63a829cacc1" style="width: 100.0%; height: 100.0%;">(MTR) Montería</div>`)[0];
+            popup_a90430080ad1459e8731bf1a9b32601d.setContent(html_b7fd37e2232b4caba88de63a829cacc1);
+        
+
+        marker_110e4d4cf2ce447fa50600916498b9f4.bindPopup(popup_a90430080ad1459e8731bf1a9b32601d)
+        ;
+
+        
+    
+    
+            var marker_29c8342d01a94cea8331840acc9b38d6 = L.marker(
+                [4.81267, -75.7395],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_b4460bb7b6f946269f56feebbb51f4b0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_17bdc6336a084ea7a9c499b48d23ea36 = $(`<div id="html_17bdc6336a084ea7a9c499b48d23ea36" style="width: 100.0%; height: 100.0%;">(PEI) Pereira</div>`)[0];
+            popup_b4460bb7b6f946269f56feebbb51f4b0.setContent(html_17bdc6336a084ea7a9c499b48d23ea36);
+        
+
+        marker_29c8342d01a94cea8331840acc9b38d6.bindPopup(popup_b4460bb7b6f946269f56feebbb51f4b0)
+        ;
+
+        
+    
+    
+            var marker_b4721bacfd534ed8b86d65871d936836 = L.marker(
+                [6.164540000000001, -75.4231],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_74837a9cce144e77b406e129bf92f5a1 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_2514d988cfa24ae7bbcd5885f451b788 = $(`<div id="html_2514d988cfa24ae7bbcd5885f451b788" style="width: 100.0%; height: 100.0%;">(MDE) Medellín</div>`)[0];
+            popup_74837a9cce144e77b406e129bf92f5a1.setContent(html_2514d988cfa24ae7bbcd5885f451b788);
+        
+
+        marker_b4721bacfd534ed8b86d65871d936836.bindPopup(popup_74837a9cce144e77b406e129bf92f5a1)
+        ;
+
+        
+    
+    
+            var marker_2fa89f4dff1b4b1a940ee425645bce16 = L.marker(
+                [11.5262, -72.926],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_59934e185e8640768c1f9d0e93ee844c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d2a74ca13c874846b4b72857c2ee7810 = $(`<div id="html_d2a74ca13c874846b4b72857c2ee7810" style="width: 100.0%; height: 100.0%;">(RCH) Riohacha</div>`)[0];
+            popup_59934e185e8640768c1f9d0e93ee844c.setContent(html_d2a74ca13c874846b4b72857c2ee7810);
+        
+
+        marker_2fa89f4dff1b4b1a940ee425645bce16.bindPopup(popup_59934e185e8640768c1f9d0e93ee844c)
+        ;
+
+        
+    
+    
+            var marker_6df4be05948d4ec18d2958482513db08 = L.marker(
+                [11.1196, -74.2306],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_ce1ac14ce4904708b688b76cb3c4d9ee = L.popup({"maxWidth": "100%"});
+
+        
+            var html_b3f77d53ae1244ce9b60f9ec82ee4bdf = $(`<div id="html_b3f77d53ae1244ce9b60f9ec82ee4bdf" style="width: 100.0%; height: 100.0%;">(SMR) Santa Marta</div>`)[0];
+            popup_ce1ac14ce4904708b688b76cb3c4d9ee.setContent(html_b3f77d53ae1244ce9b60f9ec82ee4bdf);
+        
+
+        marker_6df4be05948d4ec18d2958482513db08.bindPopup(popup_ce1ac14ce4904708b688b76cb3c4d9ee)
+        ;
+
+        
+    
+    
+            var marker_d9e957c4414a4bf5a499897f55fbc295 = L.marker(
+                [12.5836, -81.7112],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_69dbf91ccdd041828d40c1925d6a1e1b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_bad620f4328240e0a96c26a15f214e53 = $(`<div id="html_bad620f4328240e0a96c26a15f214e53" style="width: 100.0%; height: 100.0%;">(ADZ) San Andrés</div>`)[0];
+            popup_69dbf91ccdd041828d40c1925d6a1e1b.setContent(html_bad620f4328240e0a96c26a15f214e53);
+        
+
+        marker_d9e957c4414a4bf5a499897f55fbc295.bindPopup(popup_69dbf91ccdd041828d40c1925d6a1e1b)
+        ;
+
+        
+    
+    
+            var marker_fc59d8dccd844851af4193a1c4ecc03d = L.marker(
+                [10.435, -73.2495],
+                {}
+            ).addTo(map_9ef485c7458c4940a0dd8fa74e99b7bc);
+        
+    
+        var popup_ea82eccb560c4766bd818da7685e77e4 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ababc0ad0fc242049dd8e35983ab0aba = $(`<div id="html_ababc0ad0fc242049dd8e35983ab0aba" style="width: 100.0%; height: 100.0%;">(VUP) Valledupar</div>`)[0];
+            popup_ea82eccb560c4766bd818da7685e77e4.setContent(html_ababc0ad0fc242049dd8e35983ab0aba);
+        
+
+        marker_fc59d8dccd844851af4193a1c4ecc03d.bindPopup(popup_ea82eccb560c4766bd818da7685e77e4)
+        ;
+
+        
+    
+</script>

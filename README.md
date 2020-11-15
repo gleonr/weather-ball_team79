@@ -16,5 +16,3 @@ For this repository you cand find all the resources (for Research and develop) a
 
   - **Resources**: Here you cand find all the notebooks, documents, and information that was collected in the firsts step.
   - **App**: Here you can find the code developed in python for the Front-end and pipelines that made this app run, the pipelines are scripts to automate the ingest of data from the APIs, and the front-end is the script in charge to consume the data from the postgresql instance, load the model for the correspondent airport city and show all the historical data.
-  
-  **Libraries** the required librarys to run this app are in the file requeriments.txt, you can install with the command pip install -r requeriments.txt

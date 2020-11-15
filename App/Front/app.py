@@ -29,15 +29,14 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import visdcc
-# import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State, ClientsideFunction
 
-# import the lib for query the SQL data
+# import the lib for querying SQL data
 from sqlalchemy import create_engine
 strConnection = 'postgresql://weather_user:159753@159.65.233.116:5432/weather_tool'
 engine = create_engine(strConnection, pool_pre_ping=True)
 
-# import libs for run the model
+# import libs for running the model
 import os, logging
 import tensorflow as tf
 import keras
@@ -83,6 +82,7 @@ def set_current_airport(weather_data, airport='BOG'):
 
     return airport_weather_data
 
+# Dividing the data into categories for a better explanatory user analysis
 def time_frame(Hour):
     # Divide the day into segments for a better approach
     # Based on classification in http://www.angelfire.com/pa/pawx/time.html
@@ -106,6 +106,9 @@ def time_frame(Hour):
 
 def adjust_period(start, end, airport_weather_data):
     # Defines the period for analysis of data default current year - five years
+    # The number 5 is used due to constraints in the range slider component that doesn not 
+    # allows to use the year directly as a parameter
+    
     current_year = dt.datetime.utcnow().year
     start = current_year - (5 - start)
     end = current_year - (5 - end)
@@ -430,6 +433,13 @@ def create_predict_plots(model_results, op_conditions):
     H_vis_min = op_conditions[0]    
     H_vis_plot = px.line(model_results, y=['H_Vsby_labels', 'H_Vsby_predict'], x=list(pd.date_range(start=time_start,end=time, freq='h').strftime('%d@%H')), \
               category_orders={"x": [pd.date_range(start=time_start,end=time, freq='h').strftime('%d@%H')]})
+    
+    '''
+    # Adding the threshold line
+    H_vis_plot.add_hline(y=H_vis_min, line_dash="dashdot", annotation_text="Visibility Threshold: " + str(np.round(H_vis_min,2)), annotation_position="bottom right", line_color='red')
+    '''
+    H_vis_threshold = px.line(x=[time_start.strftime('%d@%H'), time.strftime('%d@%H')], y=[H_vis_min, H_vis_min],color_discrete_sequence=["red"] ,line_dash_sequence=['dashdot'])
+    H_vis_threshold.update_traces (name='Visibility Threshold:' + str(H_vis_min), showlegend=True, )
 
     # Adding forecast point
     H_vis_forecast = px.scatter(x=[time_next], y=[model_results['H_Vsby_predict'].iat[-1]], text=[np.round([model_results['H_Vsby_predict'].iat[-1]],2)])
@@ -437,9 +447,7 @@ def create_predict_plots(model_results, op_conditions):
     
 
     H_vis_plot.add_trace(H_vis_forecast.data[0])
-
-    # Adding the threshold line
-    H_vis_plot.add_hline(y=H_vis_min, line_dash="dashdot", annotation_text="Visibility Threshold: " + str(np.round(H_vis_min,2)), annotation_position="bottom right", line_color='red')
+    H_vis_plot.add_trace(H_vis_threshold.data[0])
 
     # Formatting the plot
     H_vis_plot.update_layout(
@@ -458,10 +466,14 @@ def create_predict_plots(model_results, op_conditions):
     # Adding forecast point
     V_vis_forecast = px.scatter(x=[time_next], y=[model_results['V_Vsby_predict'].iat[-1]], text=[np.round([model_results['V_Vsby_predict'].iat[-1]],2)])
     V_vis_forecast.update_traces(name='Forecast', showlegend=True, marker_symbol='square-dot',marker_color='green', textposition='top center')
-    
+    '''
     # Adding the threshold line
     V_vis_plot.add_hline(y=V_vis_min, line_dash="dashdot", annotation_text="Visibility Threshold: " + str(np.round(V_vis_min,2)), annotation_position="bottom right", line_color='red')
+    '''
+    V_vis_threshold = px.line(x=[time_start.strftime('%d@%H'), time.strftime('%d@%H')], y=[V_vis_min, V_vis_min],color_discrete_sequence=["red"] ,line_dash_sequence=['dashdot'])
+    V_vis_threshold.update_traces (name='Visibility Threshold:' + str(V_vis_min), showlegend=True, )
 
+    V_vis_plot.add_trace(V_vis_threshold.data[0])
     V_vis_plot.add_trace(V_vis_forecast.data[0])
 
     # Formatting the plot
@@ -542,6 +554,8 @@ head = """
             <link rel="stylesheet" href="/assets/weather-icons-wind.css">
             <link rel="stylesheet" href="/assets/fixed.css">
             <link rel="stylesheet" href="/assets/style.css">
+            <link rel="stylesheet" href="/assets/fontawesome.min.css">
+            <link rel="stylesheet" href="/assets/brands.min.css">
             <link rel="shortcut icon" href="/assets/favicon.ico">
             <script src="https://cdn.aerisapi.com/wxblox/latest/aeris-wxblox.js"></script>
 
@@ -582,7 +596,7 @@ navigation = '''
                         <a class="nav-link" href="#team">Our Team</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact us</a>
+                        <a class="nav-link" href="#sponsors">Sponsors</a>
                     </li>			
                 </ul>
             </div>
@@ -596,12 +610,7 @@ navigation = '''
 #################################
 image_slider = '''
         <!--- Start image slider -->
-        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="10000">
-            <ol class="carousel-indicators">
-            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-            </ol>
+        <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
             <!-- Start Carousel inner -->
             <div class="carousel-inner" role="listbox">
             <!-- Slide 1 -->
@@ -613,31 +622,23 @@ image_slider = '''
                     </div>
                 </div>
             <!-- Slide 2 -->
-            <div class="carousel-item" style="background-image: url(assets/explore.gif);">
+            <div class="carousel-item" style="background-image: url(assets/airport_2.jpg);">
                 <div class="carousel-caption d-none d-md-block">
-                <h5>Second slide label</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h1>Weather-ball WIS</h1>
+                    <h4>Airport weather operational conditions explorer and adviser</h4>
+                    <a class="btn btn-dark btn-outline-light btn-lg" href="#explore">Get started</a>
                 </div>
             </div>
             <!-- Slide 3 -->
-            <div class="carousel-item" style="background-image: url(assets/airport.jpg);">
+            <div class="carousel-item" style="background-image: url(assets/airport_3.jpg);">
                 <div class="carousel-caption d-none d-md-block">
-                <h5>Third slide label</h5>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    <h1>Weather-ball WIS</h1>
+                    <h4>Airport weather operational conditions explorer and adviser</h4>
+                    <a class="btn btn-dark btn-outline-light btn-lg" href="#explore">Get started</a>
                 </div>
             </div>
             </div> 
             <!-- End Carousel inner-->
-            <!-- Previous button -->
-            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-            </a>
-            <!-- Next button -->
-            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-            </a>
         </div>
         <!--- End image slider -->
 '''
@@ -668,6 +669,8 @@ class CustomDash(dash.Dash):
             <!--- Script Source Files -->
             <script src="/assets/jquery-3.5.1.min.js"></script>
             <script src="/assets/bootstrap.min.js"></script>
+            <script defer src="/assets/brands.min.js"></script>
+            <script defer src="/assets/fontawesome.min.js"></script>
             
             
             <!--- End of Script Source Files -->     
@@ -1011,8 +1014,6 @@ inspect_heading = html.Div(
             html.Div(
                 [
                     html.H3(children="Inspect about changes in future conditions", className="heading"),
-                    html.Hr(className="my-4"),
-                    html.H5(children="Select...",  className="heading")
                 ],
                 className="col-sm-12 text-center flex-start"
             ),
@@ -1027,16 +1028,15 @@ inspect_heading = html.Div(
 
 frequency_map_layout = html.Div(
     [
-        html.Div(
-            [
-                    html.P(children="Non-operative conditions", className="text-label label-size"),
+        html.H5([
+            html.Span("Non-operative conditions", className="inspect-title")
             ],
-            className="col-sm-12 back-label-size"
+            className="inspect-border"
         ),
         dcc.Graph(id='Frequency_map', figure=frequency_map),   
         html.P("Frequencies at which horizontal and/or vertical visibility are below allowable limits for operation continuity"),
     ],
-    className="card d-flex align-items-start"
+    className="d-block"
 )
 
 
@@ -1060,8 +1060,13 @@ weather_widgets = html.Div(
         ),
         html.Div(
             [
+                html.H5([
+                    html.Span("Wind distribution map", className="inspect-title")
+                ],
+                className="inspect-border"
+                ),
                 html.Iframe(src="https://www.meteoblue.com/en/weather/maps/widget?windAnimation=0&windAnimation=1&gust=0&gust=1&geoloc=4.70,-74.14&tempunit=C&windunit=kn&lengthunit=metric&zoom=10",\
-                    className="forecast", id="Weather_map", sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"),
+                    className="meteomap", id="Weather_map", sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"),
             ],
             className="col-sm-7"
         )
@@ -1088,6 +1093,12 @@ map_freq_layout = html.Div(
         ),
         html.Div(
             [
+                html.H5([
+                    html.Span("Horizontal visibility @24h with forecast for 1h", className="inspect-title")
+                ],
+                className="inspect-border"
+                ),
+
                 dcc.Graph(id="H_vis_plot", figure=H_vis_plot)
             ],
             className="overlay-table"
@@ -1103,6 +1114,11 @@ map_freq_layout = html.Div(
                 ),
                 html.Div(
                     [
+                        html.H5([
+                            html.Span("Vertical visibility @24h with forecast for 1h", className="inspect-title")
+                        ],
+                        className="inspect-border"
+                        ),
                         dcc.Graph(id="V_vis_plot", figure=V_vis_plot)
                     ],
                     className="col-sm-8"
@@ -1134,16 +1150,13 @@ inspect = html.Div(
 #################################################################################################
 #                                   Section 4 - about                                           #
 #################################################################################################
-
-about = html.Div(
+about_heading = html.Div(
     [
         html.Div(
         [
             html.Div(
                 [
-                    html.H3(children="About this development", className="heading"),
-                    html.Hr(className="my-4"),
-                    html.H5(children="Why Weather-ball exists",  className="heading")
+                    html.H3(children="About Weather-ball", className="heading")
                 ],
                 className="col-12 text-center flex-start"
             ),
@@ -1154,6 +1167,24 @@ about = html.Div(
     id="about",
     className="offset"
 )
+
+
+
+about = html.Div([
+    about_heading,
+    html.Div(
+        [
+        html.Div(
+            [
+                html.Iframe(src="https://view.genial.ly/5faf3a2ca083c60d0a8bed0e",\
+                sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox", className="about")
+            ],
+            className="col-sm-10 d-flex align-items-center justify-content-center"
+        )
+        ],
+        className="d-flex justify-content-center"
+    )
+])
 
 
 
@@ -1172,7 +1203,7 @@ b_1 = html.Div(
     [
         html.P("Experience:", className="text-center"),
         html.Ul(
-        [
+            [
             html.Li(
                 html.P("Marketing")
             ),
@@ -1180,9 +1211,21 @@ b_1 = html.Div(
                 html.P("BI tools design and development and data analytics for supporting business decision making")
             )
             ]
-            )
-        ]
+        ),
+    ]
 )
+
+c_1 = html.Div(
+            [
+            html.A(
+                [
+                html.I(className="fab fa-linkedin fa-3x")
+                ],
+                href="https://www.linkedin.com/in/luisdominguezmoran", target="_blank"
+            )
+            ],
+            className="d-flex align-items-end text-center justify-content-center card-footer"
+        )
 
 
 
@@ -1193,7 +1236,7 @@ b_2 = html.Div(
     [
         html.P("Experience:", className="text-center"),
         html.Ul(
-        [
+            [
             html.Li(
                 html.P("Project Management/Agilism")
             ),
@@ -1204,10 +1247,20 @@ b_2 = html.Div(
                 html.P("RPA and AI tools with advanced forecasting and analytics models")
             )
             ]
-            )
-        ]
+        ),        
+     ]
 )
-
+c_2 = html.Div(
+            [
+            html.A(
+                [
+                html.I(className="fab fa-linkedin fa-3x")
+                ],
+                href="https://www.linkedin.com/in/gleonardor-785880108", target="_blank"
+            )
+            ],
+            className="d-flex align-items-end text-center justify-content-center card-footer"
+        )
 
 
 p_3 = "Pascual Ferrans PhD(e)"
@@ -1216,7 +1269,7 @@ b_3 = html.Div(
     [
         html.P("Experience:", className="text-center"),
         html.Ul(
-        [
+            [
             html.Li(
                 html.P("Operations Research")
             ),
@@ -1224,9 +1277,21 @@ b_3 = html.Div(
                 html.P("Statistical data management")
             ),
             ]
-            )
-        ]
+        ),
+    ]
 )
+
+c_3 = html.Div(
+            [
+            html.A(
+                [
+                html.I(className="fab fa-linkedin fa-3x")
+                ],
+                href="https://www.linkedin.com/in/pascual-ferrans-ram%C3%ADrez-654a86105/", target="_blank"
+            )
+            ],
+            className="d-flex align-items-end text-center justify-content-center card-footer"
+        )
 
 
 p_4 = "Camilo Quiroga MSc."
@@ -1235,7 +1300,7 @@ b_4 = html.Div(
     [
         html.P("Experience:", className="text-center"),
         html.Ul(
-        [
+            [
             html.Li(
                 html.P("Continuous improvement of processes")
             ),
@@ -1246,10 +1311,21 @@ b_4 = html.Div(
                 html.P("Advanced techniques in Statistics and optimization estrategies")
             ),
             ]
-            )
-        ]
+        ),
+    ]
 )
 
+c_4 = html.Div(
+            [
+            html.A(
+                [
+                html.I(className="fab fa-linkedin fa-3x")
+                ],
+                href="https://www.linkedin.com/in/camiloquirogaing/", target="_blank"
+            )
+            ],
+            className="d-flex align-items-end text-center justify-content-center card-footer"
+        )
 
 
 p_5 = "Daniel Mariño MSc(e)"
@@ -1258,7 +1334,7 @@ b_5 = html.Div(
     [
         html.P("Experience:", className="text-center"),
         html.Ul(
-        [
+            [
             html.Li(
                 html.P("Researching in labour markets, financial econometrics, risk and wellbeing")
             ),
@@ -1266,10 +1342,21 @@ b_5 = html.Div(
                 html.P("Customer service analytics")
             ),
             ]
-            )
-        ]
+        ),
+    ],
 )
 
+c_5 = html.Div(
+            [
+            html.A(
+                [
+                html.I(className="fab fa-linkedin fa-3x")
+                ],
+                href="https://www.linkedin.com/in/jdmarinou/", target="_blank"
+            )
+            ],
+            className="d-flex align-items-end text-center justify-content-center card-footer"
+        )
 
 p_6 = "Manuel Serrano MBA-PMP"
 e_6 = html.P(["Mechanical Engineer", html.Br(),"Industrial Designer"],className="text-center")
@@ -1278,7 +1365,7 @@ b_6 = html.Div(
     [
         html.P("Experience:", className="text-center"),
         html.Ul(
-        [
+            [
             html.Li(
                 html.P("Strategic consulting")
             ),
@@ -1286,9 +1373,21 @@ b_6 = html.Div(
                 html.P("R&D and product development")
             ),
             ]
-            )
-        ]
+        ),
+    ]
 )
+
+c_6 =html.Div(
+            [
+            html.A(
+                [
+                html.I(className="fab fa-linkedin fa-3x")
+                ],
+                href="https://www.linkedin.com/in/manuel-leonardo-serrano-rey-b7238811/", target="_blank"
+            )
+            ],
+            className="d-flex align-items-end text-center justify-content-center card-footer"
+        )
 
 ##################################################################
 #                       Team section                             #
@@ -1324,9 +1423,10 @@ team = html.Div(
                                         b_1,
                                     ],
                                     className="card-body"
-                                )
+                                ),
+                                c_1
                             ],
-                            className="card h-100 d-flex align-items-start align-content-center"
+                            className="card h-100 d-flex"
                         ),
                     ],
                     className="col-md-3 .card-padding"
@@ -1343,9 +1443,10 @@ team = html.Div(
                                     b_2,
                                 ],
                                 className="card-body"
-                            )
+                            ),
+                            c_2
                         ],
-                        className="card h-100 d-flex align-items-start"
+                        className="card h-100 d-flex"
                     ),
                 ], 
                 className="col-md-3 .card-padding"
@@ -1362,13 +1463,14 @@ team = html.Div(
                                     b_3,
                                 ],
                                 className="card-body"
-                            )
+                            ),
+                            c_3
                         ],
-                        className="card h-100 d-flex align-items-start"
+                        className="card h-100 d-flex"
                     ),
-                ],
+                ], 
                 className="col-md-3 .card-padding"
-                ),                
+                ),             
             ],
             className="row equal d-flex justify-content-center"
         ),
@@ -1386,9 +1488,10 @@ team = html.Div(
                                         b_4,
                                     ],
                                     className="card-body"
-                                )
+                                ),
+                                c_4
                             ],
-                            className="card h-100 d-flex align-items-start"
+                            className="card h-100 d-flex"
                         ),
                     ],
                     className="col-md-3 .card-padding"
@@ -1405,9 +1508,10 @@ team = html.Div(
                                     b_5,
                                 ],
                                 className="card-body"
-                            )
+                            ),
+                            c_5
                         ],
-                        className="card h-100 d-flex align-items-start"
+                        className="card h-100 d-flex"
                     ),
                 ], 
                 className="col-md-3 .card-padding"
@@ -1424,9 +1528,10 @@ team = html.Div(
                                     b_6,
                                 ],
                                 className="card-body"
-                            )
+                            ),
+                            c_6
                         ],
-                        className="card h-100 d-flex align-items-startmx-auto"
+                        className="card h-100 d-flex"
                     ),
                 ],
                 className="col-md-3 .card-padding"
@@ -1446,7 +1551,17 @@ team = html.Div(
 
 contact = html.Footer(
     [
-        html.Img(src="assets/ds4a_logo.png")
+        html.H4("Our Sponsors", className="heading text-center"),
+        html.Div(
+            [
+                html.Div(html.Img(src="assets/ds4a_logo.png"), id="logo_1"),
+                html.Div(html.Img(src="assets/mintic_logo.png"), id="logo_2"),
+                html.Div(html.Img(src="assets/c1_logo.png"),id="logo_3"),
+            ],
+            className="d-flex px-md-5 justify-content-center align-items-center",
+            id="sponsors"
+
+        ),
     ]
 )
 
@@ -1457,12 +1572,18 @@ contact = html.Footer(
 app.layout = html.Div(
     [
         visdcc.Run_js(id = 'javascript'),
+        dcc.Interval(
+            id='interval-component-5min',
+            interval=5*60*1000, # in milliseconds
+            n_intervals=0
+        ),
         explore,
         analyze,
         inspect,
         about,
         team,
-        contact,        
+        contact
+
     ]
 )
 
@@ -1567,9 +1688,10 @@ def update_airport_from_dropdown(value, fig):
 @app.callback(
      dash.dependencies.Output('javascript', 'run'),
     [dash.dependencies.Input('observations', 'children'),
-     dash.dependencies.Input('forecast', 'children')],
+     dash.dependencies.Input('forecast', 'children'),
+     dash.dependencies.Input('interval-component-5min', 'n_intervals')],
      dash.dependencies.State('Airports_list', 'value'))
-def update_aeris_data(observations, forecast, value):
+def update_aeris_data(observations, forecast, intervals, value):
 
 # Java script for metereological data Aerisweather
     Latitude = airports[airports['iata_code'] == value]['latitude_deg'].array[0]

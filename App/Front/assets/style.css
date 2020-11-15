@@ -167,18 +167,20 @@ h3.heading{
 }
 
 #Frequency_map{
-  height:15rem;
+  height:41vh;
   width: 100%;
-}
-#V_vis_plot,#H_vis_plot{
-  width: 100%;
-  height: 25rem;
 }
 
-.forecast{
+
+#V_vis_plot,#H_vis_plot{
+  width: 100%;
+  height: 60vh;
+}
+
+.meteomap{ 
   border: 0;
   width: 100%; 
-  height: 43vh;
+  height: 50vh;
 }
 
 .heatmaps{
@@ -211,18 +213,54 @@ h3.heading{
 }
 
 
+.inspect-border{
+  display: block;
+  background: transparent;
+  border-bottom: 1px solid #15a8e1;
+}
+
+.inspect-title{
+  display: inline-block;
+  background-color: #15a8e1;
+  margin: -1px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.90rem;
+  padding: 0.1875rem 2.5rem 0.25rem 0.3125rem;
+}
+
+
 .overlay-map {
   margin-top: -1rem;
 }
 
 /* Overlay column for forecast and frequency tables  */
 .overlay-table {
-  margin-left: -21rem;
+  margin-left: -24%;
+  margin-top: 2.051%;
   width: 65%;
+}
+
+
+.about{
+  height: 76vh;
+  width:100%;
+  overflow: hidden;
 }
 
 footer{
   background-color: rgb(57, 149, 172);
+  color: white;
+  padding-top:1rem;
+}
+
+#sponsors{
+  height: 20vh;
+}
+
+#sponsors img{
+  padding-left: 0.5rem!important;
+  padding-right: 0.5rem!important;
 }
 
 @media (max-width: 767px){
@@ -246,6 +284,10 @@ footer{
   .jumbotron h3{
     font-size: 1rem;
     letter-spacing: 0.1rem;
+  }
+  .overlay-table {
+    margin-left: 0%;
+    width: 100%;
   }
 }
 

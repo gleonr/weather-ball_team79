@@ -9,7 +9,7 @@ This app was developed having in mind the benefits for the following aviation ac
   - **Airlines**: Mitigate delays caused by adverse weather conditions, by avoiding scheduling flights when there is a high probability of these types of events, such as reduced visibility and thunder, therefore guaranteeing punctuality. Reducing gasoline consumption by keeping a flight on ground that was scheduled to a destination where there may be weather conditions that would restrict the aircraft from landing. 
   - **Airports**: When there are adverse conditions surrounding an airport, they get saturated. Therefore it’s relevant to have an adequate weather management tool that will enable them to safely and efficiently execute their different processes. 
   
-Please be free to visit [Weather-Ball](http://www.weather-ball.com)
+Please be free to visit [Weather-Ball](https://weather-ball.com)
   
 ## What can you find here
 
